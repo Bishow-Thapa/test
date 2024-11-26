@@ -13,7 +13,9 @@ const LoginHeader = () => {
   };
 
   return (
-    <Header style={{ padding: "0 50px", width: "100%" }}>
+    <Header
+      style={{ padding: "0 50px", width: "100%", backgroundColor: "#ffffff" }}
+    >
       <Row justify="space-between" align="middle">
         <Col>
           <img src={Logo} alt="My Image" />

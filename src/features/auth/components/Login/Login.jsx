@@ -7,9 +7,6 @@ import { jwtDecode } from "jwt-decode";
 import { useLoginMutation } from "@features/auth/services/authApi";
 import { setAuth } from "@features/auth/services/authSlice";
 import { LoginHeader, LoginForm, LoginFooter } from "./";
-import * as objPersist from "redux-persist";
-
-console.log("objPersist: ", objPersist);
 
 const { Content } = Layout;
 
