@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Layout, Spin, Form, Input, Button, Alert } from "antd";
 import { useDispatch } from "react-redux";
+import queryString from "query-string";
 import { useLoginMutation } from "@features/auth/services/authApi";
 import { setAuth } from "@features/auth/services/authSlice";
 import { LoginHeader, LoginForm, LoginFooter } from "./";
@@ -20,7 +21,17 @@ const Login = () => {
     const { username, password } = values;
     try {
       console.log("Logging in with", values);
-      const user = await login({ username, password }).unwrap();
+
+      const formData = queryString.stringify({
+        username: username,
+        password: password,
+        grant_type: "password",
+        client_id: "myclient",
+        client_secret: "ClientSecret1",
+        scope: "BankingAppAPI.read",
+      });
+
+      const user = await login(formData).unwrap();
       dispatch(setAuth({ user: user?.username, token: user?.accessToken }));
       setLoading(false);
     } catch (err) {

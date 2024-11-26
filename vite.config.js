@@ -14,4 +14,11 @@ export default defineConfig({
       "@assets": "/src/assets",
     },
   },
+  proxy: {
+    "/login": {
+      target: "https://bk-id2.info.com.np",
+      changeOrigin: true,
+      rewrite: (path) => path.replace(/^\/login/, "/connect/token"),
+    },
+  },
 });
