@@ -1,7 +1,9 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Layout, Spin, Form, Input, Button, Alert } from "antd";
 import { useDispatch } from "react-redux";
 import queryString from "query-string";
+import { jwtDecode } from "jwt-decode";
 import { useLoginMutation } from "@features/auth/services/authApi";
 import { setAuth } from "@features/auth/services/authSlice";
 import { LoginHeader, LoginForm, LoginFooter } from "./";
@@ -15,6 +17,7 @@ const Login = () => {
   const [login, { isLoading, isError, data, error }] = useLoginMutation();
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const onFinish = async (values) => {
     setLoading(true);
@@ -22,17 +25,47 @@ const Login = () => {
     try {
       console.log("Logging in with", values);
 
-      const formData = queryString.stringify({
+      const cqFormData = queryString.stringify({
+        grant_type: "password",
+        client_id: "Framework_App",
         username: username,
         password: password,
-        grant_type: "password",
-        client_id: "myclient",
-        client_secret: "ClientSecret1",
-        scope: "BankingAppAPI.read",
       });
 
-      const user = await login(formData).unwrap();
-      dispatch(setAuth({ user: user?.username, token: user?.accessToken }));
+      // const formData = queryString.stringify({
+      //   username: username,
+      //   password: password,
+      //   grant_type: "password",
+      //   client_id: "myclient",
+      //   client_secret: "ClientSecret1",
+      //   scope: "BankingAppAPI.read",
+      // });
+
+      const user = await login(cqFormData).unwrap();
+
+      console.log("User: ", user);
+      const decodedToken = jwtDecode(user?.access_token);
+      console.log("Decoded Token:", decodedToken);
+
+      console.log("Dispatching setAuth with user data:", {
+        user: user?.username,
+        token: user?.access_token,
+        refresh: user?.refresh_token,
+        role: decodedToken?.role,
+        scope: decodedToken?.scope,
+      });
+
+      navigate("/dashboard");
+
+      dispatch(
+        setAuth({
+          // user: user?.username,
+          token: user?.access_token || null,
+          refresh: user?.refresh_token || null,
+          role: decodedToken?.role || null,
+          scope: decodedToken?.scope || null,
+        })
+      );
       setLoading(false);
     } catch (err) {
       setLoading(false);

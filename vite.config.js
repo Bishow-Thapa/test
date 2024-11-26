@@ -5,7 +5,8 @@ export default defineConfig({
   plugins: [react()],
   server: {
     open: true,
-    port: 3000,
+    // port: 4400,
+    port: 4200,
   },
   resolve: {
     alias: {
@@ -14,11 +15,11 @@ export default defineConfig({
       "@assets": "/src/assets",
     },
   },
-  proxy: {
-    "/login": {
-      target: "https://bk-id2.info.com.np",
-      changeOrigin: true,
-      rewrite: (path) => path.replace(/^\/login/, "/connect/token"),
-    },
-  },
+  // proxy: {
+  //   "/login": {
+  //     target: "https://bk-id2.info.com.np",
+  //     changeOrigin: true,
+  //     rewrite: (path) => path.replace(/^\/login/, "/connect/token"),
+  //   },
+  // },
 });
