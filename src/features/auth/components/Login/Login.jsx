@@ -29,16 +29,16 @@ const Login = () => {
         password: password,
       });
 
-      // const formData = queryString.stringify({
-      //   username: username,
-      //   password: password,
-      //   grant_type: "password",
-      //   client_id: "myclient",
-      //   client_secret: "ClientSecret1",
-      //   scope: "BankingAppAPI.read",
-      // });
+      const formData = queryString.stringify({
+        username: username,
+        password: password,
+        grant_type: "password",
+        client_id: "webclient",
+        client_secret: "ClientSecret1",
+        scope: "BankingAppAPI.read",
+      });
 
-      const user = await login(cqFormData).unwrap();
+      const user = await login(formData).unwrap();
 
       console.log("User: ", user);
       const decodedToken = jwtDecode(user?.access_token);
