@@ -10,6 +10,10 @@ const axiosInstance = {
     baseURL: import.meta.env.VITE_REACT_APP_LOGIN_API_URL,
     ...axiosConfig,
   }),
+  test: axios.create({
+    baseURL: import.meta.env.VITE_REACT_APP_TEST_API_URL,
+    ...axiosConfig,
+  }),
 };
 
 export default axiosInstance;
