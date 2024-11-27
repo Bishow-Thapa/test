@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Layout, Spin, Form, Input, Button, Alert } from "antd";
+import { Layout, Spin, Form, Input, Button, Alert, notification } from "antd";
 import { useDispatch } from "react-redux";
 import queryString from "query-string";
 import { jwtDecode } from "jwt-decode";
 import { useLoginMutation } from "@features/auth/services/authApi";
 import { setAuth } from "@features/auth/services/authSlice";
 import { LoginHeader, LoginForm, LoginFooter } from "./";
+import { notify } from "@shared/utils/notificationUtils";
 
 const { Content } = Layout;
 
@@ -66,6 +67,15 @@ const Login = () => {
       setLoading(false);
     } catch (err) {
       setLoading(false);
+      // console.log("err: ", err);
+      notify(
+        "error",
+        "topRight",
+        err?.data?.error || "Invalid Credentials",
+        err?.data?.error_description ||
+          "An unexpected error occurred during login.",
+        2
+      );
     }
   };
 
