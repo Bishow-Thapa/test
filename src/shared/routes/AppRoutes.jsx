@@ -7,7 +7,7 @@ import RedirectRoute from "./RedirectRoutes";
 
 const AppRoutes = () => {
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
-  console.log("isAuthenticated: ", isAuthenticated);
+
   return (
     <Router>
       <Routes>

@@ -20,7 +20,7 @@ const Login = () => {
     setLoading(true);
     const { username, password } = values;
     try {
-      console.log("Logging in with", values);
+      // console.log("Logging in with", values);
 
       const cqFormData = queryString.stringify({
         grant_type: "password",
