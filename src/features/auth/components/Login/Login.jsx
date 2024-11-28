@@ -43,7 +43,7 @@ const Login = () => {
 
       // console.log("User: ", user);
       const decodedToken = jwtDecode(user?.access_token);
-      console.log("Decoded Token:", decodedToken);
+      // console.log("Decoded Token:", decodedToken);
 
       // console.log("Dispatching setAuth with user data:", {
       //   user: user?.username,

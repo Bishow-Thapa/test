@@ -15,6 +15,7 @@ import { authApi } from "@features/auth/services/authApi";
 import { postsApi } from "@features/dashboard/services/dashboardApi";
 import authReducer from "@features/auth/services/authSlice";
 import { combineReducers } from "@reduxjs/toolkit";
+import jwtMiddleware from "./jwtMiddleware";
 
 const persistConfig = {
   key: "root",
@@ -38,6 +39,7 @@ export const store = configureStore({
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
     })
+      .concat(jwtMiddleware)
       .concat(authApi.middleware)
       .concat(postsApi.middleware),
 });
