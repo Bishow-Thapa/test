@@ -6,7 +6,7 @@ export const postsApi = createApi({
     baseUrl: "https://jsonplaceholder.typicode.com",
     prepareHeaders: (headers, { getState }) => {
       const token = getState().auth.token;
-      console.log("token: xxx: ", token);
+      // console.log("token: xxx: ", token);
       if (token) {
         headers.set("Authorization", `Bearer ${token}`);
       }

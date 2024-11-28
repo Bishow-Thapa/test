@@ -10,7 +10,7 @@ const Dashboard = () => {
 
   const { data, error, isLoading } = useGetPostsQuery();
 
-  console.log("Dashboard data: ", data);
+  // console.log("Dashboard data: ", data);
 
   const handleLogout = () => {
     dispatch(logout());

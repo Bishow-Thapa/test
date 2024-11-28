@@ -41,17 +41,17 @@ const Login = () => {
 
       const user = await login(formData).unwrap();
 
-      console.log("User: ", user);
+      // console.log("User: ", user);
       const decodedToken = jwtDecode(user?.access_token);
       console.log("Decoded Token:", decodedToken);
 
-      console.log("Dispatching setAuth with user data:", {
-        user: user?.username,
-        token: user?.access_token,
-        refresh: user?.refresh_token,
-        role: decodedToken?.role,
-        scope: decodedToken?.scope,
-      });
+      // console.log("Dispatching setAuth with user data:", {
+      //   user: user?.username,
+      //   token: user?.access_token,
+      //   refresh: user?.refresh_token,
+      //   role: decodedToken?.role,
+      //   scope: decodedToken?.scope,
+      // });
 
       navigate("/dashboard");
 
