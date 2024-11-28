@@ -5,6 +5,7 @@ import { PersistGate } from "redux-persist/integration/react";
 import { ConfigProvider } from "antd";
 import { store, persistor } from "@shared/store/store";
 import { lightTheme } from "@shared/utils/theme";
+import ErrorBoundaryWrapper from "@shared/components/ErrorBoundary/ErrorBoundaryWrapper";
 import "./index.css";
 import App from "./App.jsx";
 
@@ -24,7 +25,9 @@ enableMocking().then(() =>
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
           <ConfigProvider theme={lightTheme}>
-            <App />
+            <ErrorBoundaryWrapper>
+              <App />
+            </ErrorBoundaryWrapper>
           </ConfigProvider>
         </PersistGate>
       </Provider>
