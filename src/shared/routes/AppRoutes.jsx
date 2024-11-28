@@ -1,34 +1,48 @@
+import React, { Suspense } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useSelector } from "react-redux";
-import Login from "@features/auth/components/Login/Login";
-import Dashboard from "@features/dashboard/components/Dashboard";
+import { Spin } from "antd";
+import { LoadingOutlined } from "@ant-design/icons";
+
 import PrivateRoute from "./PrivateRoutes";
 import RedirectRoute from "./RedirectRoutes";
+
+const Login = React.lazy(() => import("@features/auth/components/Login/Login"));
+const Dashboard = React.lazy(() =>
+  import("@features/dashboard/components/Dashboard")
+);
+const NotFoundPage = React.lazy(() =>
+  import("@shared/components/NotFound/NotFoundPage")
+);
 
 const AppRoutes = () => {
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
 
   return (
     <Router>
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <RedirectRoute>
-              <Login />
-            </RedirectRoute>
-          }
-        ></Route>
-        {/* <Route path="/dashboard" element={<Dashboard />}></Route> */}
-        <Route
-          path="/dashboard"
-          element={
-            <PrivateRoute>
-              <Dashboard />
-            </PrivateRoute>
-          }
-        />
-      </Routes>
+      <Suspense
+        fallback={<Spin indicator={<LoadingOutlined spin />} size="large" />}
+      >
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <RedirectRoute>
+                <Login />
+              </RedirectRoute>
+            }
+          ></Route>
+          <Route
+            path="/dashboard"
+            element={
+              <PrivateRoute>
+                <Dashboard />
+              </PrivateRoute>
+            }
+          />
+          <Route path="*" element={<NotFoundPage />} />
+        </Routes>
+      </Suspense>
     </Router>
   );
 };
