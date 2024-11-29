@@ -15,6 +15,10 @@ const axiosInstance = {
     baseURL: import.meta.env.VITE_REACT_APP_TEST_API_URL,
     ...axiosConfig,
   }),
+  loginTest: axios.create({
+    baseURL: import.meta.env.VITE_REACT_APP_DUMMY_API_URL,
+    ...axiosConfig,
+  }),
 };
 
 axiosInstance.test.interceptors.request.use(

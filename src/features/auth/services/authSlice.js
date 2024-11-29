@@ -29,8 +29,18 @@ const authSlice = createSlice({
       state.scope = null;
       state.isAuthenticated = false;
     },
+    updateRefreshToken: (state, action) => {
+      console.log(
+        "xxx updateRefreshToken action: ",
+        action.payload.accessToken
+      );
+      console.log("xxx updateACESSToken action: ", action.payload.refreshToken);
+
+      state.refresh = action.payload.refreshToken;
+      state.token = action.payload.refreshToken;
+    },
   },
 });
 
-export const { setAuth, logout } = authSlice.actions;
+export const { setAuth, logout, updateRefreshToken } = authSlice.actions;
 export default authSlice.reducer;

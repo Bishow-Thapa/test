@@ -39,11 +39,14 @@ const Login = () => {
         scope: "BankingAppAPI.read",
       });
 
-      const user = await login(formData).unwrap();
+      const normalData = { username, password, expiresInMins: 1 };
+      console.log("normalData: ", normalData);
+
+      const user = await login(normalData).unwrap();
 
       // console.log("User: ", user);
-      const decodedToken = jwtDecode(user?.access_token);
-      // console.log("Decoded Token:", decodedToken);
+      const decodedToken = jwtDecode(user?.accessToken);
+      console.log("Decoded Token:", decodedToken);
 
       // console.log("Dispatching setAuth with user data:", {
       //   user: user?.username,
@@ -58,8 +61,8 @@ const Login = () => {
       dispatch(
         setAuth({
           // user: user?.username,
-          token: user?.access_token || null,
-          refresh: user?.refresh_token || null,
+          token: user?.accessToken || null,
+          refresh: user?.refreshToken || null,
           role: decodedToken?.role || null,
           scope: decodedToken?.scope || null,
         })
@@ -67,7 +70,7 @@ const Login = () => {
       setLoading(false);
     } catch (err) {
       setLoading(false);
-      // console.log("err: ", err);
+      console.log("err: ", err);
       notify(
         "error",
         "topRight",

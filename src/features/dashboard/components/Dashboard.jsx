@@ -2,13 +2,22 @@ import { Button } from "antd";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { logout } from "@features/auth/services/authSlice";
-import { useGetPostsQuery } from "@features/dashboard/services/dashboardApi";
+import {
+  useGetPostsQuery,
+  useGetMeQuery,
+} from "@features/dashboard/services/dashboardApi";
 
 const Dashboard = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { data, error, isLoading } = useGetPostsQuery();
+  const {
+    data: jsonData,
+    error: jsonError,
+    isLoading: jsonLoading,
+  } = useGetPostsQuery();
+
+  const { data, error, isLoading } = useGetMeQuery();
 
   // console.log("Dashboard data: ", data);
 

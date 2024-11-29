@@ -12,7 +12,7 @@ import {
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import { authApi } from "@features/auth/services/authApi";
-import { postsApi } from "@features/dashboard/services/dashboardApi";
+import { postsApi, meApi } from "@features/dashboard/services/dashboardApi";
 import authReducer from "@features/auth/services/authSlice";
 import { combineReducers } from "@reduxjs/toolkit";
 import jwtMiddleware from "./jwtMiddleware";
@@ -27,6 +27,7 @@ const rootReducer = combineReducers({
   auth: authReducer,
   [authApi.reducerPath]: authApi.reducer,
   [postsApi.reducerPath]: postsApi.reducer,
+  [meApi.reducerPath]: meApi.reducer,
 });
 
 const persistedAuthReducer = persistReducer(persistConfig, rootReducer);
@@ -41,7 +42,8 @@ export const store = configureStore({
     })
       .concat(jwtMiddleware)
       .concat(authApi.middleware)
-      .concat(postsApi.middleware),
+      .concat(postsApi.middleware)
+      .concat(meApi.middleware),
 });
 
 export const persistor = persistStore(store);
