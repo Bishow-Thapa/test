@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import logger from "@shared/utils/logger";
 
 const authSlice = createSlice({
   name: "auth",
@@ -12,8 +13,6 @@ const authSlice = createSlice({
   },
   reducers: {
     setAuth: (state, action) => {
-      // console.log("state: ", state);
-      // console.log("action: ", action);
       // state.user = action.payload.user;
       state.token = action.payload.token;
       state.refresh = action.payload.refresh;
@@ -30,11 +29,17 @@ const authSlice = createSlice({
       state.isAuthenticated = false;
     },
     updateRefreshToken: (state, action) => {
-      console.log(
-        "xxx updateRefreshToken action: ",
-        action.payload.accessToken
-      );
-      console.log("xxx updateACESSToken action: ", action.payload.refreshToken);
+      const payloadAccessToken = action?.payload?.accessToken;
+      const payloadRefreshToken = action?.payload?.refreshToken;
+
+      logger.info({
+        msg: "xxx updateRefreshToken action: ",
+        payloadAccessToken,
+      });
+      logger.info({
+        msg: "xxx updateACESSToken action: ",
+        payloadRefreshToken,
+      });
 
       state.refresh = action.payload.refreshToken;
       state.token = action.payload.refreshToken;

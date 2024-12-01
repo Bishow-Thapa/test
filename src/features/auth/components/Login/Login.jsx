@@ -8,6 +8,7 @@ import { useLoginMutation } from "@features/auth/services/authApi";
 import { setAuth } from "@features/auth/services/authSlice";
 import { LoginHeader, LoginForm, LoginFooter } from "./";
 import { notify } from "@shared/utils/notificationUtils";
+import logger from "@shared/utils/logger";
 
 const { Content } = Layout;
 
@@ -21,7 +22,7 @@ const Login = () => {
     setLoading(true);
     const { username, password } = values;
     try {
-      // console.log("Logging in with", values);
+      // logger.info({msg: "Logging in with", values});
 
       const cqFormData = queryString.stringify({
         grant_type: "password",
@@ -40,21 +41,21 @@ const Login = () => {
       });
 
       const normalData = { username, password, expiresInMins: 1 };
-      console.log("normalData: ", normalData);
+      logger.info({ msg: "normalData", normalData });
 
       const user = await login(normalData).unwrap();
 
-      // console.log("User: ", user);
       const decodedToken = jwtDecode(user?.accessToken);
-      console.log("Decoded Token:", decodedToken);
+      // logger.info({msg: "Decoded Token", decodedToken});
 
-      // console.log("Dispatching setAuth with user data:", {
+      // let dispatchValue = {
       //   user: user?.username,
       //   token: user?.access_token,
       //   refresh: user?.refresh_token,
       //   role: decodedToken?.role,
       //   scope: decodedToken?.scope,
-      // });
+      // };
+      // logger.info("Dispatching setAuth with user data:", dispatchValue);
 
       navigate("/dashboard");
 
@@ -70,7 +71,7 @@ const Login = () => {
       setLoading(false);
     } catch (err) {
       setLoading(false);
-      console.log("err: ", err);
+      logger.error({ msg: "Login Error", err });
       notify(
         "error",
         "topRight",
@@ -102,7 +103,6 @@ const Login = () => {
           }}
         >
           <LoginForm onFinish={onFinish} loading={loading} />
-          {/* <Spin spinning={loading} /> */}
         </div>
       </Content>
 

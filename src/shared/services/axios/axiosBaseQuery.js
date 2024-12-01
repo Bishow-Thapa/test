@@ -1,6 +1,7 @@
 import axiosInstance from "./axiosInstance";
 import { store } from "@shared/store/store";
 import { updateRefreshToken } from "@features/auth/services/authSlice";
+import logger from "@shared/utils/logger";
 
 const axiosBaseQuery =
   ({ baseUrl } = { baseUrl: "" }) =>
@@ -32,7 +33,8 @@ const axiosBaseQuery =
           // Dispatch tokenReceived action with the new token
           // api.dispatch(tokenReceived(refreshResult.data)); // Ensure correct token structure
 
-          console.log("refreshResult?.data: ", refreshResult?.data);
+          const resultData = refreshResult?.data;
+          logger.info({ msg: "refreshResult?.data: ", resultData });
           api.dispatch(updateRefreshToken(refreshResult.data)); // Assuming `refresh` is part of the response
 
           // // Retry the original request with the new token
@@ -56,7 +58,7 @@ const axiosBaseQuery =
           //     data: "Unable to refresh token. Logged out.",
           //   },
           // };
-          console.log("Unable to refresh token. Logged out.");
+          logger.info({ msg: "Unable to refresh token. Logged out." });
         }
       }
       // Return error if it's not a 401

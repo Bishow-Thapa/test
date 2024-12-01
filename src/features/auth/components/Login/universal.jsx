@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { useLoginMutation } from "@features/auth/services/authApi";
 import { setAuth } from "@features/auth/services/authSlice";
 import { Input, Button, Form, Alert } from "antd";
+import logger from "@shared/utils/logger";
 
 const Login = () => {
   const [username, setUsername] = useState("");
@@ -15,9 +16,8 @@ const Login = () => {
     try {
       const user = await login({ username, password }).unwrap();
       dispatch(setAuth({ user: user?.username, token: user?.accessToken })); // Persist the user data and token
-      console.log("Login successful:", user);
     } catch (err) {
-      console.error("Login failed:", err);
+      logger.error({ msg: "Login failed", err });
     }
   };
 

@@ -8,7 +8,6 @@ const { Text } = Typography;
 
 const LoginHeader = () => {
   const handleLanguageChange = (value) => {
-    console.log("Selected language:", value);
     // Add your language change logic here (e.g., change language in your i18n library)
   };
 
