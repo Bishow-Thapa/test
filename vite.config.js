@@ -5,9 +5,8 @@ export default defineConfig({
   plugins: [react()],
   server: {
     open: true,
-    // port: 3000,
-    port: 4400,
-    // port: 4200,
+    // port: 4400,
+    port: 4200,
   },
   resolve: {
     alias: {
@@ -15,6 +14,10 @@ export default defineConfig({
       "@shared": "/src/shared",
       "@assets": "/src/assets",
     },
+  },
+  build: {
+    outDir: "dist",
+    sourcemap: false,
   },
   // proxy: {
   //   "/login": {

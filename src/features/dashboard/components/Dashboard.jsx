@@ -6,6 +6,7 @@ import {
   useGetPostsQuery,
   useGetMeQuery,
 } from "@features/dashboard/services/dashboardApi";
+import logger from "@shared/utils/logger";
 
 const Dashboard = () => {
   const dispatch = useDispatch();
@@ -19,18 +20,27 @@ const Dashboard = () => {
 
   const { data, error, isLoading } = useGetMeQuery();
 
-  // console.log("Dashboard data: ", data);
-
   const handleLogout = () => {
     dispatch(logout());
 
     navigate("/");
+  };
+
+  const handleClick = () => {
+    let testObj = {
+      listOfA: [{ nickName: "john" }, { nickName: "wick" }],
+    };
+    let anotherArray = ["apple", "ball", "cat"];
+    logger.info("HELLO");
   };
   return (
     <>
       Dashboard
       <Button type="primary" onClick={handleLogout}>
         Logout
+      </Button>
+      <Button type="secondary" onClick={handleClick}>
+        Click Me
       </Button>
     </>
   );
