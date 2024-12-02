@@ -41,12 +41,12 @@ const Login = () => {
       });
 
       const normalData = { username, password, expiresInMins: 1 };
-      logger.info({ msg: "normalData", normalData });
+      // logger.info({ msg: "normalData", normalData });
 
       const user = await login(normalData).unwrap();
 
       const decodedToken = jwtDecode(user?.accessToken);
-      // logger.info({msg: "Decoded Token", decodedToken});
+      logger.info({ msg: "Decoded Token", decodedToken });
 
       // let dispatchValue = {
       //   user: user?.username,
