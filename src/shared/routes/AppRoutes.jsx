@@ -15,6 +15,8 @@ const NotFoundPage = React.lazy(() =>
   import("@shared/components/NotFound/NotFoundPage")
 );
 
+import { MainLayout } from "@shared/components/DashbordLayout";
+
 const AppRoutes = () => {
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
 
@@ -36,7 +38,9 @@ const AppRoutes = () => {
             path="/dashboard"
             element={
               <PrivateRoute>
-                <Dashboard />
+                <MainLayout>
+                  <Dashboard />
+                </MainLayout>
               </PrivateRoute>
             }
           />
