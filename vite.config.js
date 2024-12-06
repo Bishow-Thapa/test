@@ -19,6 +19,13 @@ export default defineConfig({
     outDir: "dist",
     sourcemap: false,
   },
+  css: {
+    preprocessorOptions: {
+      scss: {
+        api: "modern",
+      },
+    },
+  },
   // proxy: {
   //   "/login": {
   //     target: "https://bk-id2.info.com.np",

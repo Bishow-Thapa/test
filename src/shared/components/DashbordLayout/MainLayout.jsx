@@ -3,7 +3,7 @@ import { Layout } from "antd";
 import { RightCircleOutlined, LeftCircleOutlined } from "@ant-design/icons";
 import { useMediaQuery } from "react-responsive";
 
-import Header from "./Header";
+import CustomHeader from "./Header";
 import Sidebar from "./Sidebar";
 
 const { Content } = Layout;
@@ -22,11 +22,13 @@ const styleName = {
 
 const MainLayout = ({ children }) => {
   const [collapsed, setCollapsed] = useState(false);
+
   const sidebarWidth = collapsed ? 80 : 240;
   const contentWidth = `calc(100% - ${sidebarWidth}px)`;
-  const toggleSidebar = () => setCollapsed((prev) => !prev);
+  const headerHeight = 60;
 
   const isSmallScreen = useMediaQuery({ maxWidth: 768 });
+  const toggleSidebar = () => setCollapsed((prev) => !prev);
 
   useEffect(() => {
     if (isSmallScreen) {
@@ -39,7 +41,7 @@ const MainLayout = ({ children }) => {
   return (
     <>
       <Layout>
-        <Header></Header>
+        <CustomHeader height={headerHeight} />
         <Layout style={{ display: "flex", flexDirection: "row" }}>
           <Sidebar collapsed={collapsed} width={sidebarWidth} />
           <Content style={{ width: contentWidth, position: "relative" }}>
