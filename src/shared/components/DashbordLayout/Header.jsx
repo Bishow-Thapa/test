@@ -1,10 +1,14 @@
 import { Avatar, Layout, Dropdown, Button, Space, Typography } from "antd";
-import { UserOutlined } from "@ant-design/icons";
+import {
+  UserOutlined,
+  MenuFoldOutlined,
+  MenuUnfoldOutlined,
+} from "@ant-design/icons";
 
 import Logo from "@assets/antd-logo.svg";
 
-const { Text } = Typography;
-const { Header } = Layout;
+const { Text, Title } = Typography;
+const { Header, Content } = Layout;
 
 const items = [
   {
@@ -13,41 +17,56 @@ const items = [
   },
 ];
 
-const CustomHeader = ({ height }) => (
+const CustomHeader = ({ height, width, collapsed, toggleSidebar }) => (
   <Layout>
     <Header
-      className="header-xxx"
+      className="custom-header"
       style={{
         height,
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "space-between",
-        background: "#FFFFFF",
-        borderBlockEnd: "1px solid rgba(5, 5, 5, 0.06)",
-        padding: "0 28px",
       }}
     >
-      <img src={Logo} alt="Logo" style={{ height: "28px" }} />
-      <Dropdown
-        className="dp"
-        menu={{
-          items,
-        }}
-        placement="bottomLeft"
-      >
-        <Button color="default" variant="text" style={{ padding: "18px 8px" }}>
-          <Space>
-            <Avatar
-              icon={<UserOutlined />}
-              size={30}
-              style={{
-                backgroundColor: "#87d068",
-              }}
-            />
-            <Text type="secondary">Bishow Thapa</Text>
-          </Space>
-        </Button>
-      </Dropdown>
+      <Title className="title" style={{ width }}>
+        <img src={Logo} alt="Logo" style={{ height: "28px" }} />
+      </Title>
+
+      <Content className="content">
+        <Button
+          className="content-button"
+          type="text"
+          icon={
+            collapsed ? (
+              <MenuUnfoldOutlined aria-label="Expand Sidebar" />
+            ) : (
+              <MenuFoldOutlined aria-label="Collapse Sidebar" />
+            )
+          }
+          onClick={toggleSidebar}
+        />
+        <Dropdown
+          className="content-dropdown"
+          menu={{
+            items,
+          }}
+          placement="bottomLeft"
+        >
+          <Button
+            color="default"
+            variant="text"
+            style={{ padding: "18px 8px" }}
+          >
+            <Space>
+              <Avatar
+                icon={<UserOutlined />}
+                size={30}
+                style={{
+                  backgroundColor: "#87d068",
+                }}
+              />
+              <Text type="secondary">Bishow Thapa</Text>
+            </Space>
+          </Button>
+        </Dropdown>
+      </Content>
     </Header>
   </Layout>
 );
