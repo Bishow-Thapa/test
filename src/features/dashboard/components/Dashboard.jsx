@@ -7,6 +7,7 @@ import {
   useGetMeQuery,
 } from "@features/dashboard/services/dashboardApi";
 import logger from "@shared/utils/logger";
+import InfoCardContainer from "@features/dashboard/containers/InfoCardContainer";
 
 const Dashboard = () => {
   const dispatch = useDispatch();
@@ -48,6 +49,7 @@ const Dashboard = () => {
 
   return (
     <>
+      <InfoCardContainer />
       Dashboard
       <Button type="primary" onClick={handleLogout}>
         Logout
