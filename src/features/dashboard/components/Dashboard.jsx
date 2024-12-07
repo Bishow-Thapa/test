@@ -33,8 +33,6 @@ const Dashboard = () => {
     let anotherArray = ["apple", "ball", "cat"];
   };
 
-  // logger.info({ msg: "Dashboard Data", data, jsonData });
-
   let columns = [
     {
       title: "S.N",

@@ -12,6 +12,7 @@ export default defineConfig({
     alias: {
       "@features": "/src/features",
       "@shared": "/src/shared",
+      "@styles": "/src/shared/styles",
       "@assets": "/src/assets",
     },
   },

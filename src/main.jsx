@@ -6,7 +6,6 @@ import { ConfigProvider } from "antd";
 import { store, persistor } from "@shared/store/store";
 import { lightTheme } from "@shared/utils/theme";
 import ErrorBoundaryWrapper from "@shared/components/ErrorBoundary/ErrorBoundaryWrapper";
-import "./index.css";
 import App from "./App.jsx";
 
 async function enableMocking() {
