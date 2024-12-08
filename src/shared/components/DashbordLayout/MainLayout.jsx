@@ -27,28 +27,26 @@ const MainLayout = ({ children }) => {
   }, [isSmallScreen]);
 
   return (
-    <>
-      <Layout>
-        <CustomHeader
-          height={headerHeight}
-          width={sidebarWidth}
-          collapsed={collapsed}
-          toggleSidebar={toggleSidebar}
-        />
-        <Layout className="main-layout">
-          <Sidebar collapsed={collapsed} width={sidebarWidth} />
-          <Content
-            className="main-content"
-            style={{
-              width: contentWidth,
-              height: layoutHight,
-            }}
-          >
-            {children}
-          </Content>
-        </Layout>
+    <Layout class="root-layout">
+      <CustomHeader
+        height={headerHeight}
+        width={sidebarWidth}
+        collapsed={collapsed}
+        toggleSidebar={toggleSidebar}
+      />
+      <Layout className="main-layout">
+        <Sidebar collapsed={collapsed} width={sidebarWidth} />
+        <Content
+          className="main-content"
+          style={{
+            width: contentWidth,
+            height: layoutHight,
+          }}
+        >
+          {children}
+        </Content>
       </Layout>
-    </>
+    </Layout>
   );
 };
 

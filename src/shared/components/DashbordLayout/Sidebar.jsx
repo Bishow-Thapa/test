@@ -1,3 +1,5 @@
+import React from "react";
+import { Link, useLocation } from "react-router-dom";
 import {
   AppstoreOutlined,
   ContainerOutlined,
@@ -8,71 +10,79 @@ import {
 import { Menu } from "antd";
 
 const Sidebar = ({ collapsed, width }) => {
+  const location = useLocation();
+
   const items = [
     {
-      key: "1",
+      key: "dashboard",
       icon: <PieChartOutlined />,
-      label: "Dashboard",
+      label: <Link to="/dashboard">Dashboard</Link>,
     },
     {
-      key: "2",
+      key: "balance",
       icon: <DesktopOutlined />,
-      label: "Balance",
+      label: <Link to="/balance">Balance</Link>,
     },
     {
-      key: "3",
+      key: "spending",
       icon: <ContainerOutlined />,
-      label: "Spending",
+      label: <Link to="/spending">Spending</Link>,
     },
     {
-      key: "sub1",
+      key: "report",
       label: "Reports",
       icon: <MailOutlined />,
       children: [
         {
-          key: "5",
-          label: "PDF",
+          key: "monthly",
+          label: "Monthly",
         },
         {
-          key: "6",
-          label: "EXCEL",
+          key: "yearly",
+          label: "Yearly",
         },
       ],
     },
     {
-      key: "sub2",
-      label: "Settings",
+      key: "profile",
+      label: "Profile",
       icon: <AppstoreOutlined />,
       children: [
         {
-          key: "9",
-          label: "Profile",
+          key: "editProfile",
+          label: <Link to="/profile/edit">Edit Profile</Link>,
         },
         {
-          key: "10",
-          label: "Limit",
-        },
-        {
-          key: "sub3",
-          label: "Submenu",
-          children: [
-            {
-              key: "11",
-              label: "Option 11",
-            },
-            {
-              key: "12",
-              label: "Option 12",
-            },
-          ],
+          key: "changePassword",
+          label: <Link to="/profile/change-password">Change password</Link>,
         },
       ],
     },
   ];
+
+  const findSelectedKey = (items) => {
+    for (const item of items) {
+      if (item.children) {
+        const selectedChild = findSelectedKey(item.children);
+        if (selectedChild) return selectedChild;
+      }
+      if (
+        React.isValidElement(item.label) &&
+        item.label.props.to === location.pathname
+      ) {
+        return item.key;
+      }
+    }
+    return null;
+  };
+
+  const selectedKey = findSelectedKey(items);
+
   return (
     <Menu
       mode="inline"
       inlineCollapsed={collapsed}
+      selectedKeys={[selectedKey]}
       items={items}
       style={{ width: `${width}px` }}
     />
