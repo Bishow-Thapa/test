@@ -6,6 +6,7 @@ import {
   DesktopOutlined,
   MailOutlined,
   PieChartOutlined,
+  MessageOutlined,
 } from "@ant-design/icons";
 import { Menu } from "antd";
 
@@ -27,6 +28,11 @@ const Sidebar = ({ collapsed, width }) => {
       key: "spending",
       icon: <ContainerOutlined />,
       label: <Link to="/spending">Spending</Link>,
+    },
+    {
+      key: "chat",
+      icon: <MessageOutlined />,
+      label: <Link to="/chat">Chat</Link>,
     },
     {
       key: "report",

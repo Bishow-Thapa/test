@@ -28,6 +28,12 @@ const Spending = React.lazy(() =>
 );
 const Report = React.lazy(() => import("@features/report/components/Report"));
 
+// Pages
+const BalancePage = React.lazy(() =>
+  import("@features/balance/pages/BalancePage")
+);
+const ChatPage = React.lazy(() => import("@features/chat/pages/ChatPage"));
+
 // Route Wrappers
 import PrivateRoute from "./PrivateRoutes";
 import RedirectRoute from "./RedirectRoutes";
@@ -64,7 +70,7 @@ const AppRoutes = () => {
             element={
               <PrivateRoute>
                 <MainLayout>
-                  <BalanceManagement />
+                  <BalancePage />
                 </MainLayout>
               </PrivateRoute>
             }
@@ -75,6 +81,17 @@ const AppRoutes = () => {
               <PrivateRoute>
                 <MainLayout>
                   <Spending />
+                </MainLayout>
+              </PrivateRoute>
+            }
+          />
+
+          <Route
+            path="/chat"
+            element={
+              <PrivateRoute>
+                <MainLayout>
+                  <ChatPage />
                 </MainLayout>
               </PrivateRoute>
             }
