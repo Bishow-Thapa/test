@@ -6,8 +6,8 @@ import {
   useGetPostsQuery,
   useGetMeQuery,
 } from "@features/dashboard/services/dashboardApi";
-import logger from "@shared/utils/logger";
 import InfoCardContainer from "@features/dashboard/containers/InfoCardContainer";
+import logger from "@shared/utils/logger";
 
 const Dashboard = () => {
   const dispatch = useDispatch();
@@ -27,13 +27,6 @@ const Dashboard = () => {
     navigate("/");
   };
 
-  const handleClick = () => {
-    let testObj = {
-      listOfA: [{ nickName: "john" }, { nickName: "wick" }],
-    };
-    let anotherArray = ["apple", "ball", "cat"];
-  };
-
   let columns = [
     {
       title: "S.N",
@@ -47,17 +40,15 @@ const Dashboard = () => {
     },
   ];
 
+  logger.info({ msg: "Dashboard: ", data });
+
   return (
     <>
       <InfoCardContainer />
-      Dashboard
       <Button type="primary" onClick={handleLogout}>
         Logout
       </Button>
-      <Button type="secondary" onClick={handleClick}>
-        Click Me
-      </Button>
-      <Table columns={columns} dataSource={jsonData} loading={jsonLoading} />
+      {/* <Table columns={columns} dataSource={jsonData} loading={jsonLoading} /> */}
     </>
   );
 };
