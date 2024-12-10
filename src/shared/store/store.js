@@ -1,4 +1,4 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import {
   persistStore,
   persistReducer,
@@ -13,7 +13,6 @@ import storage from "redux-persist/lib/storage";
 import { authApi } from "@features/auth/services/authApi";
 import { postsApi, meApi } from "@features/dashboard/services/dashboardApi";
 import authReducer from "@features/auth/services/authSlice";
-import { combineReducers } from "@reduxjs/toolkit";
 import jwtMiddleware from "./jwtMiddleware";
 
 const persistConfig = {
