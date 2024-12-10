@@ -14,25 +14,24 @@ const NotFoundPage = React.lazy(() =>
 const MainLayout = React.lazy(() =>
   import("@shared/components/DashbordLayout/MainLayout")
 );
-const EditProfile = React.lazy(() =>
-  import("@features/profile/components/EditProfile")
-);
-const ChangePassword = React.lazy(() =>
-  import("@features/profile/components/ChangePassword")
-);
-const BalanceManagement = React.lazy(() =>
-  import("@features/balance/components/BalanceManagement")
-);
-const Spending = React.lazy(() =>
-  import("@features/spending/components/Spending")
-);
-const Report = React.lazy(() => import("@features/report/components/Report"));
 
 // Pages
 const BalancePage = React.lazy(() =>
   import("@features/balance/pages/BalancePage")
 );
+const SpendingPage = React.lazy(() =>
+  import("@features/spending/pages/SpendingPage")
+);
 const ChatPage = React.lazy(() => import("@features/chat/pages/ChatPage"));
+const ReportPage = React.lazy(() =>
+  import("@features/report/pages/ReportPage")
+);
+const EditProfilePage = React.lazy(() =>
+  import("@features/profile/pages/EditProfilePage")
+);
+const ChangePasswordPage = React.lazy(() =>
+  import("@features/profile/pages/ChangePasswordPage")
+);
 
 // Route Wrappers
 import PrivateRoute from "./PrivateRoutes";
@@ -55,6 +54,7 @@ const AppRoutes = () => {
               </RedirectRoute>
             }
           ></Route>
+
           <Route
             path="/dashboard"
             element={
@@ -65,6 +65,7 @@ const AppRoutes = () => {
               </PrivateRoute>
             }
           />
+
           <Route
             path="/balance"
             element={
@@ -75,12 +76,13 @@ const AppRoutes = () => {
               </PrivateRoute>
             }
           />
+
           <Route
             path="/spending"
             element={
               <PrivateRoute>
                 <MainLayout>
-                  <Spending />
+                  <SpendingPage />
                 </MainLayout>
               </PrivateRoute>
             }
@@ -98,21 +100,33 @@ const AppRoutes = () => {
           />
 
           <Route
-            path="/profile/edit"
+            path="/reports"
             element={
               <PrivateRoute>
                 <MainLayout>
-                  <EditProfile />
+                  <ReportPage />
                 </MainLayout>
               </PrivateRoute>
             }
           />
+
+          <Route
+            path="/profile/edit"
+            element={
+              <PrivateRoute>
+                <MainLayout>
+                  <EditProfilePage />
+                </MainLayout>
+              </PrivateRoute>
+            }
+          />
+
           <Route
             path="/profile/change-password"
             element={
               <PrivateRoute>
                 <MainLayout>
-                  <ChangePassword />
+                  <ChangePasswordPage />
                 </MainLayout>
               </PrivateRoute>
             }

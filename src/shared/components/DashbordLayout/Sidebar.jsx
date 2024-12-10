@@ -36,18 +36,8 @@ const Sidebar = ({ collapsed, width }) => {
     },
     {
       key: "report",
-      label: "Reports",
+      label: <Link to="/reports">Reports</Link>,
       icon: <MailOutlined />,
-      children: [
-        {
-          key: "monthly",
-          label: "Monthly",
-        },
-        {
-          key: "yearly",
-          label: "Yearly",
-        },
-      ],
     },
     {
       key: "profile",
