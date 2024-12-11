@@ -1,11 +1,12 @@
-import { useGetBalanceQuery } from "../services/balanceApi";
+import BalanceChart from "../components/BalanceChart";
 
 const BalancePage = () => {
-  const { data, loading, error } = useGetBalanceQuery();
-
-  console.log("data: ", data);
-
-  return <>BalancePage</>;
+  return (
+    <>
+      <h1>Account Balance</h1>
+      <BalanceChart />
+    </>
+  );
 };
 
 export default BalancePage;
