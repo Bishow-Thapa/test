@@ -14,6 +14,7 @@ import { authApi } from "@features/auth/services/authApi";
 import { postsApi, meApi } from "@features/dashboard/services/dashboardApi";
 import authReducer from "@features/auth/services/authSlice";
 import jwtMiddleware from "./jwtMiddleware";
+import { balanceApi } from "@features/balance/services/balanceApi";
 
 const persistConfig = {
   key: "root",
@@ -26,6 +27,7 @@ const rootReducer = combineReducers({
   [authApi.reducerPath]: authApi.reducer,
   [postsApi.reducerPath]: postsApi.reducer,
   [meApi.reducerPath]: meApi.reducer,
+  [balanceApi.reducerPath]: balanceApi.reducer,
 });
 
 const persistedAuthReducer = persistReducer(persistConfig, rootReducer);
@@ -41,7 +43,8 @@ export const store = configureStore({
       .concat(jwtMiddleware)
       .concat(authApi.middleware)
       .concat(postsApi.middleware)
-      .concat(meApi.middleware),
+      .concat(meApi.middleware)
+      .concat(balanceApi.middleware),
 });
 
 export const persistor = persistStore(store);

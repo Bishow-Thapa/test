@@ -5,7 +5,7 @@ import { CONFIG } from "@shared/utils/config";
 export const balanceApi = createApi({
   reducerPath: "balanceApi",
   baseQuery: axiosBaseQuery({
-    baseUrl: CONFIG.BASE_URL,
+    baseUrl: CONFIG.MSW,
   }),
   endpoints: (builder) => ({
     getBalance: builder.query({

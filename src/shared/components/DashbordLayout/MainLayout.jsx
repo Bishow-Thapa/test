@@ -27,7 +27,7 @@ const MainLayout = ({ children }) => {
   }, [isSmallScreen]);
 
   return (
-    <Layout class="root-layout">
+    <Layout className="root-layout">
       <CustomHeader
         height={headerHeight}
         width={sidebarWidth}

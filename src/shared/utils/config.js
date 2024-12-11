@@ -3,4 +3,5 @@ export const CONFIG = {
   LOGIN_URL: import.meta.env.VITE_REACT_APP_DUMMY_API_URL,
   LOG_LEVEL: import.meta.env.VITE_REACT_APP_LOG_LEVEL,
   MODE: import.meta.env.VITE_REACT_APP_ENV,
+  MSW: import.meta.env.VITE_REACT_APP_MSW_API_URL,
 };
