@@ -23,7 +23,11 @@ RUN pnpm run build
 FROM nginx:alpine
 
 # Copy the build folder from the previous step to Nginx's html directory
-COPY --from=build /app/dist /usr/share/nginx/html
+COPY --from=build /app/dist/client /usr/share/nginx/html
+
+# Copy custom nginx config
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+
 
 # Expose the port that Nginx is running on
 EXPOSE 80

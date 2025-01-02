@@ -9,6 +9,11 @@ import { setAuth } from "@features/auth/services/authSlice";
 import { LoginHeader, LoginForm, LoginFooter } from "./";
 import { notify } from "@shared/utils/notificationUtils";
 import logger from "@shared/utils/logger";
+import {
+  validateJWTStructure,
+  isTokenExpired,
+  decodeToken,
+} from "@shared/utils/jwtUtils";
 
 const { Content } = Layout;
 
@@ -23,7 +28,6 @@ const Login = () => {
     const { username, password } = values;
     try {
       // logger.info({msg: "Logging in with", values});
-
       const cqFormData = queryString.stringify({
         grant_type: "password",
         client_id: "Framework_App",
@@ -41,24 +45,23 @@ const Login = () => {
       });
 
       const normalData = { username, password, expiresInMins: 1 };
-      // logger.info({ msg: "normalData", normalData });
 
       const user = await login(normalData).unwrap();
+      const accessToken = user?.accessToken;
 
-      const decodedToken = jwtDecode(user?.accessToken);
-      logger.info({ msg: "Decoded Token", decodedToken });
-
-      // let dispatchValue = {
-      //   user: user?.username,
-      //   token: user?.access_token,
-      //   refresh: user?.refresh_token,
-      //   role: decodedToken?.role,
-      //   scope: decodedToken?.scope,
-      // };
-      // logger.info("Dispatching setAuth with user data:", dispatchValue);
-
-      navigate("/dashboard");
-
+      // Validate the JWT Structure
+      if (!validateJWTStructure(accessToken)) {
+        setLoading(false);
+        return;
+      }
+      // Check if token is expired or not
+      if (isTokenExpired(accessToken)) {
+        setLoading(false);
+        return;
+      }
+      // Decode the accesstoken
+      const decodedToken = decodeToken(accessToken);
+      // Dispatch to Redux Store
       dispatch(
         setAuth({
           // user: user?.username,
@@ -69,6 +72,7 @@ const Login = () => {
         })
       );
       setLoading(false);
+      navigate("/dashboard");
     } catch (err) {
       setLoading(false);
       logger.error({ msg: "Login Error", err });
